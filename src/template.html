@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="options">
+        <button class="addTask">New Task</button>
+        <dialog id="my-dialog">
+          <form action="">
+            <input
+              type="text"
+              id="titleInput"
+              placeholder="Enter title for your task"
+            />
+            <input
+              type="text"
+              id="descriptionInput"
+              placeholder="Description"
+            />
+            <select name="priority" id="priorityInput">
+              <option value="p1">P1</option>
+              <option value="p2">P2</option>
+              <option value="p3">P3</option>
+              <option value="p4">P4</option>
+            </select>
+            <input type="date" id="dateInput" />
+            <input type="text" id="noteInput" />
+            <button id="createTask">Create</button>
+          </form>
+        </dialog>
+      </div>
+
+      <div class="item_list"></div>
+    </div>
+  </body>
+</html>
