@@ -29,9 +29,22 @@
             </select>
             <input type="date" id="dateInput" />
             <input type="text" id="noteInput" />
+            <select name="projects" id="projectInput"></select>
             <button id="createTask">Create</button>
           </form>
         </dialog>
+        <div class="projectDiv">
+          <button class="newProjectBtn">New Project</button>
+          <dialog class="projectDialog">
+            <form action="">
+              <input type="text" placeholder="Project Name" id="projectName">
+              <button class="createProjectBtn">Create</button>
+            </form>
+          </dialog>
+          <div class="projDispDiv">
+
+          </div>
+        </div>
       </div>
 
       <div class="item_list"></div>

@@ -1,29 +1,35 @@
 import { parse} from 'date-fns';
 
 
-export function createTodo(title,description,priority,date,note){
+export function createTodo(title,description,priority,date,note,project){
     let todoTitle = "";
     let todoDescription="";
     let todoPriority="";
     let todoDate;
     let todoNote="";
+    let id;
+    let projectName;
  const updateTitle=()=> {todoTitle=title};
  const updateDescription=()=> {todoDescription=description};
  const updatePriority=()=> {todoPriority=priority};
  const updateDate=()=> {
   
-    const myDateFormat = "yyyy-mm-dd";
+    const myDateFormat = "yyyy-MM-dd";
     const parsedDate = parse(date, myDateFormat, new Date());
     return todoDate=parsedDate;
 };
+const updateId=()=>{id=crypto.randomUUID()};
+const updateProject=()=>{projectName=project};
  const updateNote=()=> {todoNote=note};
  const getTitle=()=>todoTitle;
  const getDescription=()=>todoDescription;
  const getPriority=()=>todoPriority;
  const getDate=()=>todoDate;
  const getNote=()=>todoNote;
+ const getId=()=>id;
+ const getProjectName=()=>projectName;
  
- return{updateTitle,updateDescription,updatePriority,updateDate,updateNote,getTitle,getDescription,getPriority,getDate,getNote};
+ return{updateTitle,updateDescription,updatePriority,updateDate,updateNote,getTitle,getDescription,getPriority,getDate,getNote,updateId,getId,updateProject,getProjectName};
 
    
 }
