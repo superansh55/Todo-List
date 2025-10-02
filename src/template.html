@@ -28,7 +28,6 @@
               <option value="p4">P4</option>
             </select>
             <input type="date" id="dateInput" />
-            <input type="text" id="noteInput" />
             <select name="projects" id="projectInput"></select>
             <button id="createTask">Create</button>
           </form>
@@ -47,7 +46,31 @@
         </div>
       </div>
 
-      <div class="item_list"></div>
+      <div class="item_list">
+       
+      </div>
+       <dialog id="edit-dialog">
+          <form action="">
+            <input
+              type="text"
+              id="editTitleInput"
+            />
+            <input
+              type="text"
+              id="editDescriptionInput"
+            />
+            <select name="priority" id="priorityInput">
+              <option value="p1">P1</option>
+              <option value="p2">P2</option>
+              <option value="p3">P3</option>
+              <option value="p4">P4</option>
+            </select>
+            <input type="date" id="editDateInput" />
+            <input type="text" id="editNoteInput" placeholder="Notes"/>
+            <select name="projects" id="editProjectInput"></select>
+            <button id="editTask">Save</button>
+          </form>
+        </dialog>
     </div>
   </body>
 </html>

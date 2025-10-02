@@ -1,7 +1,7 @@
 import { parse} from 'date-fns';
 
 
-export function createTodo(title,description,priority,date,note,project){
+export function createTodo(){
     let todoTitle = "";
     let todoDescription="";
     let todoPriority="";
@@ -9,18 +9,18 @@ export function createTodo(title,description,priority,date,note,project){
     let todoNote="";
     let id;
     let projectName;
- const updateTitle=()=> {todoTitle=title};
- const updateDescription=()=> {todoDescription=description};
- const updatePriority=()=> {todoPriority=priority};
- const updateDate=()=> {
+ const updateTitle=(title)=> {todoTitle=title};
+ const updateDescription=(description)=> {todoDescription=description};
+ const updatePriority=(priority)=> {todoPriority=priority};
+ const updateDate=(date)=> {
   
     const myDateFormat = "yyyy-MM-dd";
     const parsedDate = parse(date, myDateFormat, new Date());
     return todoDate=parsedDate;
 };
 const updateId=()=>{id=crypto.randomUUID()};
-const updateProject=()=>{projectName=project};
- const updateNote=()=> {todoNote=note};
+const updateProject=(project)=>{projectName=project};
+ const updateNote=(note)=> {todoNote=note};
  const getTitle=()=>todoTitle;
  const getDescription=()=>todoDescription;
  const getPriority=()=>todoPriority;

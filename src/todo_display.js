@@ -1,9 +1,19 @@
+
 import { createTodo } from "./create_todo";
 export function domDisplay() {
   const taskDialog = document.querySelector("#my-dialog");
+  const editDialog = document.querySelector('#edit-dialog');
   const taskDiv = document.querySelector(".item_list");
+  const taskItem = document.querySelector('.taskItem');
   const projDispDiv = document.querySelector(".projDispDiv");
   const projDialog = document.querySelector(".projectDialog");
+   const editTitleInput = document.querySelector('#editTitleInput');
+  const editDescriptionInput = document.querySelector('#editDescriptionInput');
+  const editPriorityInput = document.querySelector('#priorityInput');
+  const editDateInput = document.querySelector('#editDateInput');
+  const editNoteInput = document.querySelector('#editNoteInput');
+  const editProjectInput = document.querySelector('#editProjectInput');
+  const editTaskBtn = document.querySelector('#editTask');
   let defaultProject = [];
   let projectsArray = [];
   defaultProject[0] = crypto.randomUUID();
@@ -16,13 +26,42 @@ export function domDisplay() {
     projDispDiv.innerHTML = "";
     projectsArray.forEach((item) => {
       const projectTitle = document.createElement("h2");
+      const deleteBtn= document.createElement("button");
+       deleteBtn.setAttribute("data-id", item[0]);
+       deleteBtn.innerText="Delete";
+        deleteBtn.classList.add("deleteProj");
       projectTitle.setAttribute("data-id", item[0]);
       projectTitle.innerText = item[1];
       projectTitle.classList.add("proj");
 
       projDispDiv.appendChild(projectTitle);
+      projDispDiv.appendChild(deleteBtn);
     });
     showProjContent();
+    deleteProject();
+  }
+
+  function saveUpdate(task){
+    editTaskBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    task.updateTitle(editTitleInput.value);
+    task.updateDescription(editDescriptionInput.value);
+    task.updatePriority(editPriorityInput.value);
+    task.updateDate(editDateInput.value);
+    task.updateNote(editNoteInput.value);
+    task.updateProject(editProjectInput.value);
+    editDialog.close();
+  });
+}
+
+  function updateTask(item){
+   
+  editTitleInput.value = item.getTitle();
+  editDescriptionInput.value = item.getDescription();
+  editPriorityInput.value = item.getPriority();
+  editDateInput.value = item.getDate();
+  editNoteInput.value = item.getNote();
+  editProjectInput.value = item.getProjectName();
   }
 
   function showProjContent() {
@@ -62,21 +101,6 @@ export function domDisplay() {
     });
   }
 
-  //  function displayTask(proj){
-  //    taskDiv.innerHTML = "";
-  //     proj.forEach((item) => {
-  //       const div = document.createElement("div");
-  //       const taskTitle = document.createElement("h2");
-  //       const taskDate = document.createElement("span");
-  //       div.setAttribute("data-id", item.getId());
-  //       taskTitle.innerText=item.getTitle();
-  //       taskDate.innerText=item.getDate();
-
-  //       div.appendChild(taskTitle);
-  //       div.appendChild(taskDate);
-  //       taskDiv.appendChild(div);
-  // })
-  // }
 
   function displayTask(proj) {
     taskDiv.innerHTML = "";
@@ -90,13 +114,25 @@ export function domDisplay() {
       checkBox.setAttribute("data-id", item.getId());
       checkBox.classList.add("check");
       div.setAttribute("data-id", item.getId());
+      div.classList.add("taskItem");
       taskTitle.innerText = item.getTitle();
       taskDate.innerText = item.getDate();
       div.appendChild(checkBox);
       div.appendChild(taskTitle);
       div.appendChild(taskDate);
       taskDiv.appendChild(div);
+
+      
+div.addEventListener('click', ()=> {
+ 
+   updateTask(item);
+   saveUpdate(item);
+  editDialog.showModal();
+ populateEditProjectDropDown();
+  
+});
     }
+    
     deleteTask(proj);
   }
 
@@ -116,22 +152,34 @@ export function domDisplay() {
     });
   }
 
-  function populateProjectDropDown() {
-    const projDropDown = document.querySelector("#projectInput");
-    projDropDown.innerHTML = "";
-    projDropDown.addEventListener("click", () => {
-      projectsArray.forEach((item) => {
-        const option = document.createElement("option");
-        const defaultOption = document.createElement("option");
-        defaultOption.textContent = projectsArray[0][1];
-        defaultOption.value = projectsArray[0][1];
-        option.textContent = item[1];
-        option.value = item[1];
+ function populateProjectDropDown() {
+  const projDropDown = document.querySelector("#projectInput");
+  projDropDown.innerHTML = "";
 
-        projDropDown.appendChild(option);
-      });
-    });
-  }
+ 
+  const defaultOption = document.createElement("option");
+  defaultOption.textContent = projectsArray[0][1];
+  defaultOption.value = projectsArray[0][1];
+  projDropDown.appendChild(defaultOption);
+
+
+  projectsArray.forEach((item) => {
+    const option = document.createElement("option");
+    option.textContent = item[1];
+    option.value = item[1];
+    projDropDown.appendChild(option);
+  });
+}
+function populateEditProjectDropDown() {
+  const editProjDropDown = document.querySelector("#editProjectInput");
+  editProjDropDown.innerHTML = "";
+  projectsArray.forEach(item => {
+    const option = document.createElement("option");
+    option.textContent = item[1];
+    option.value = item[1];
+    editProjDropDown.appendChild(option);
+  });
+}
 
   function createTask() {
     const titleInput = document.querySelector("#titleInput");
@@ -143,21 +191,13 @@ export function domDisplay() {
     const projInput = document.querySelector("#projectInput");
     createTaskBtn.addEventListener("click", (event) => {
       event.preventDefault();
-      const newTask = createTodo(
-        titleInput.value,
-        descriptionInput.value,
-        priorityInput.value,
-        dateInput.value,
-        noteInput.value,
-        projInput.value
-      );
-      newTask.updateTitle();
-      newTask.updateDescription();
-      newTask.updatePriority();
-      newTask.updateDate();
-      newTask.updateNote();
+      const newTask = createTodo();
+      newTask.updateTitle( titleInput.value);
+      newTask.updateDescription( descriptionInput.value);
+      newTask.updatePriority(priorityInput.value);
+      newTask.updateDate( dateInput.value);
       newTask.updateId();
-      newTask.updateProject();
+      newTask.updateProject( projInput.value);
       projectsArray.forEach((item) => {
         if (item[1] === newTask.getProjectName()) {
           item.push(newTask);
@@ -176,6 +216,20 @@ export function domDisplay() {
       populateProjectDropDown();
     });
   }
+
+  function deleteProject(){
+    const deleteProjBtn=document.querySelectorAll('.deleteProj');
+    deleteProjBtn.forEach((item)=>{
+      item.addEventListener('click',(event)=>{
+        const projId=event.target.dataset.id;
+        const projIndex=projectsArray.findIndex((project)=>project[0]===projId);
+        projectsArray.splice(projIndex,1);
+        displayProject();
+        taskDiv.innerHTML="";
+      });
+    });
+  }  
+
 
   showDialog();
   createTask();
