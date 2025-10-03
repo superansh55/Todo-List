@@ -1,4 +1,3 @@
-
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +12,6 @@ body {
   color: #333;
 }
 
-
 .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -22,7 +20,6 @@ body {
   gap: 30px;
   height: calc(100vh - 40px);
 }
-
 
 .options {
   background: white;
@@ -42,7 +39,6 @@ body {
   letter-spacing: 1px;
   margin-bottom: 10px;
 }
-
 
 button {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -84,7 +80,6 @@ button:active {
   box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
 }
 
-
 .projectDiv {
   display: flex;
   flex-direction: column;
@@ -116,7 +111,6 @@ button:active {
   color: white;
 }
 
-
 .item_list {
   background: white;
   border-radius: 15px;
@@ -127,7 +121,6 @@ button:active {
   flex-direction: column;
   gap: 15px;
 }
-
 
 .taskItem {
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -172,7 +165,6 @@ button:active {
   transform: scale(1.1);
 }
 
-
 dialog {
   border: none;
   border-radius: 15px;
@@ -193,7 +185,7 @@ dialog::backdrop {
 }
 
 dialog form {
-  padding: 30px;
+  padding: 50px 30px 30px 30px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -202,25 +194,25 @@ dialog form {
   position: relative;
 }
 
-
 .close-dialog {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 10px;
+  right: 10px;
   background: transparent;
   color: #999;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 28px;
   line-height: 1;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: none;
+  z-index: 10;
 }
 
 .close-dialog:hover {
@@ -240,7 +232,6 @@ dialog h3 {
   margin-bottom: 10px;
 }
 
-
 input[type="text"],
 input[type="date"],
 select,
@@ -252,6 +243,9 @@ textarea {
   font-family: inherit;
   transition: all 0.3s ease;
   background: #f5f7fa;
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
 }
 
 input[type="text"]:focus,
@@ -264,7 +258,8 @@ textarea:focus {
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-input[type="text"]::placeholder {
+input[type="text"]::placeholder,
+textarea::placeholder {
   color: #999;
 }
 
@@ -276,8 +271,8 @@ select {
   background-position: right 12px center;
   background-size: 20px;
   padding-right: 40px;
+  background-color: #f5f7fa;
 }
-
 
 dialog button {
   margin-top: 10px;
@@ -292,7 +287,6 @@ dialog button {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-
 .item_list:empty::before {
   content: "No tasks yet. Click 'New Task' to get started!";
   display: flex;
@@ -303,7 +297,6 @@ dialog button {
   font-size: 18px;
   font-style: italic;
 }
-
 
 .options::-webkit-scrollbar,
 .item_list::-webkit-scrollbar {
@@ -326,7 +319,6 @@ dialog button {
 .item_list::-webkit-scrollbar-thumb:hover {
   background: #764ba2;
 }
-
 
 @media (max-width: 968px) {
   .container {
@@ -367,10 +359,9 @@ dialog button {
   }
 
   dialog form {
-    padding: 20px;
+    padding: 50px 20px 20px 20px;
   }
 }
-
 
 .taskItem[data-priority="p1"] {
   border-left-color: #f5576c;
@@ -387,7 +378,6 @@ dialog button {
 .taskItem[data-priority="p4"] {
   border-left-color: #42a5f5;
 }
-
 
 @keyframes slideIn {
   from {
