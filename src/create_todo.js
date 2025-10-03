@@ -1,50 +1,73 @@
-import { parse} from 'date-fns';
+import { parse } from 'date-fns';
 
+export function createTodo() {
+  let todoTitle = "";
+  let todoDescription = "";
+  let todoPriority = "";
+  let todoDate = null;
+  let todoNote = "";
+  let id;
+  let projectName;
 
-export function createTodo(){
-    let todoTitle = "";
-    let todoDescription="";
-    let todoPriority="";
-    let todoDate;
-    let todoNote="";
-    let id;
-    let projectName;
- const updateTitle=(title)=> {todoTitle=title};
- const updateDescription=(description)=> {todoDescription=description};
- const updatePriority=(priority)=> {todoPriority=priority};
- const updateDate=(date)=> {
+  const updateTitle = (title) => { todoTitle = title; };
+  const updateDescription = (description) => { todoDescription = description; };
+  const updatePriority = (priority) => { todoPriority = priority; };
   
+  const updateDate = (date) => {
+    if (!date || date === '') {
+      todoDate = null;
+      return;
+    }
+    
+    
+    if (date instanceof Date) {
+      todoDate = date;
+      return;
+    }
+    
+    
+    if (typeof date === 'string' && date.includes('T')) {
+      todoDate = new Date(date);
+      return;
+    }
+    
+    
     const myDateFormat = "yyyy-MM-dd";
-    const parsedDate = parse(date, myDateFormat, new Date());
-    return todoDate=parsedDate;
-};
-const updateId=()=>{id=crypto.randomUUID()};
-const updateProject=(project)=>{projectName=project};
- const updateNote=(note)=> {todoNote=note};
- const getTitle=()=>todoTitle;
- const getDescription=()=>todoDescription;
- const getPriority=()=>todoPriority;
- const getDate=()=>todoDate;
- const getNote=()=>todoNote;
- const getId=()=>id;
- const getProjectName=()=>projectName;
- 
- return{updateTitle,updateDescription,updatePriority,updateDate,updateNote,getTitle,getDescription,getPriority,getDate,getNote,updateId,getId,updateProject,getProjectName};
+    try {
+      const parsedDate = parse(date, myDateFormat, new Date());
+      todoDate = parsedDate;
+    } catch (error) {
+      console.error('Error parsing date:', error);
+      todoDate = null;
+    }
+  };
 
-   
+  const updateId = () => { id = crypto.randomUUID(); };
+  const updateProject = (project) => { projectName = project; };
+  const updateNote = (note) => { todoNote = note; };
+  
+  const getTitle = () => todoTitle;
+  const getDescription = () => todoDescription;
+  const getPriority = () => todoPriority;
+  const getDate = () => todoDate;
+  const getNote = () => todoNote;
+  const getId = () => id;
+  const getProjectName = () => projectName;
+
+  return {
+    updateTitle,
+    updateDescription,
+    updatePriority,
+    updateDate,
+    updateNote,
+    getTitle,
+    getDescription,
+    getPriority,
+    getDate,
+    getNote,
+    updateId,
+    getId,
+    updateProject,
+    getProjectName
+  };
 }
-
-
-//     const todo1 = createTodo("mytask1","this is my todo","first priority","01/10/2025","my Note");
-// todo1.updateTitle();
-// todo1.updateDescription();
-// todo1.updatePriority();
-// todo1.updateDate();
-// todo1.updateNote();
-
-
-// console.log(todo1.getTitle(),todo1.getNote(),todo1.getDate());
-
-// const todo2 = createTodo("mytask2");
-// todo2.updateTitle();
-// console.log(todo2.getTitle());

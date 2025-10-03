@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
@@ -11,6 +12,7 @@
         <button class="addTask">New Task</button>
         <dialog id="my-dialog">
           <form action="">
+            <button type="button" class="close-dialog" aria-label="Close">&times;</button>
             <input
               type="text"
               id="titleInput"
@@ -36,6 +38,7 @@
           <button class="newProjectBtn">New Project</button>
           <dialog class="projectDialog">
             <form action="">
+              <button type="button" class="close-dialog" aria-label="Close">&times;</button>
               <input type="text" placeholder="Project Name" id="projectName">
               <button class="createProjectBtn">Create</button>
             </form>
@@ -51,6 +54,7 @@
       </div>
        <dialog id="edit-dialog">
           <form action="">
+            <button type="button" class="close-dialog" aria-label="Close">&times;</button>
             <input
               type="text"
               id="editTitleInput"
@@ -72,5 +76,6 @@
           </form>
         </dialog>
     </div>
+    <script type="module" src="index.js"></script>
   </body>
 </html>
